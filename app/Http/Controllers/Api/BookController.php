@@ -14,7 +14,6 @@ class BookController extends Controller
      */
     public function index()
     {
-        // [cite: 28, 29]
         $books = Book::paginate(4);
         return response()->json($books);
     }
@@ -25,17 +24,17 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'book_name' => [ // [cite: 15]
+            'book_name' => [
                 'required',
                 'string',
-                'max:150', // [cite: 21]
+                'max:150',
                 Rule::unique('books')->where(function ($query) use ($request) {
                     return $query->where('author', $request->author);
-                }), // [cite: 20]
+                }),
             ],
-            'description' => 'nullable|string', // [cite: 16, 22]
-            'author' => 'required|string|max:150', // [cite: 17, 21]
-            'published_date' => 'required|date', // [cite: 18, 23]
+            'description' => 'nullable|string',
+            'author' => 'required|string|max:150',
+            'published_date' => 'required|date',
         ]);
 
         $book = Book::create($validatedData);
@@ -60,7 +59,7 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $validatedData = $request->validate([
-            'description' => 'nullable|string', // [cite: 26]
+            'description' => 'nullable|string',
         ]);
 
         $book->update($validatedData);
@@ -77,8 +76,8 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         // Validasi keberadaan buku sudah otomatis ditangani oleh Route Model Binding Laravel.
-        // Jika {book} tidak ditemukan, Laravel akan otomatis merespon dengan 404 Not Found. [cite: 33]
-        $book->delete(); // [cite: 32]
+        // Jika {book} tidak ditemukan, Laravel akan otomatis merespon dengan 404 Not Found.
+        $book->delete();
 
         return response()->json([
             'message' => 'Book deleted successfully'
@@ -86,7 +85,7 @@ class BookController extends Controller
     }
 
     /**
-     * Mencari buku berdasarkan judul atau deskripsi. [cite: 34, 35]
+     * Mencari buku berdasarkan judul atau deskripsi.
      */
     public function search(Request $request)
     {
@@ -98,7 +97,7 @@ class BookController extends Controller
 
         $books = Book::where('book_name', 'LIKE', "%{$query}%")
                      ->orWhere('description', 'LIKE', "%{$query}%")
-                     ->paginate(4); // [cite: 36, 37]
+                     ->paginate(4);
 
         return response()->json($books);
     }
