@@ -1,61 +1,168 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Book Management API - Simple CRUD Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ini adalah proyek API sederhana yang dibangun menggunakan Laravel untuk manajemen data buku. Proyek ini dibuat sebagai bagian dari tes teknis dan mencakup fungsionalitas dasar Create, Read, Update, Delete (CRUD) serta fitur pencarian.
 
-## About Laravel
+API ini mengikuti standar RESTful dan dirancang untuk menjadi backend bagi aplikasi frontend seperti web (JavaScript) atau mobile.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur Utama
+- **Create**: Menambahkan buku baru ke dalam database.
+- **Read**: Menampilkan daftar buku dengan paginasi (4 buku per halaman).
+- **Update**: Memperbarui deskripsi (sinopsis) dari buku yang sudah ada.
+- **Delete**: Menghapus data buku dari database.
+- **Search**: Mencari buku berdasarkan nama atau deskripsi.
+- **Validation**: Memastikan integritas data, seperti mencegah duplikasi buku dengan penulis yang sama dan membatasi panjang input.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Persyaratan
+- PHP >= 8.1
+- Composer
+- Web Server Lokal (XAMPP, Laragon, dll.)
+- Database (MySQL/MariaDB)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Instalasi & Penggunaan
+Berikut adalah langkah-langkah untuk menjalankan proyek ini di lingkungan lokal.
 
-## Learning Laravel
+### 1. Clone Repositori
+Clone repositori ini ke komputermu:
+```bash
+git clone [URL_GIT_KAMU]
+cd nama-folder-proyek
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 2. Instal Dependensi
+Instal semua dependensi PHP yang dibutuhkan menggunakan Composer:
+```bash
+composer install
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 3. Konfigurasi Lingkungan
+Salin file `.env.example` menjadi `.env`:
+```bash
+copy .env.example .env
+```
+Buka file `.env` dan sesuaikan konfigurasi database (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) dengan pengaturan di komputermu.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 4. Buat Kunci Aplikasi
+Generate kunci aplikasi unik untuk proyek Laravel-mu:
+```bash
+php artisan key:generate
+```
 
-## Laravel Sponsors
+### 5. Jalankan Migrasi & Seeder
+Buat semua tabel yang dibutuhkan dan isi dengan data awal menggunakan perintah berikut:
+```bash
+php artisan migrate:fresh --seed
+```
+Perintah ini akan membuat tabel `users`, `books`, dll., dan mengisi tabel `books` dengan beberapa data contoh.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 6. Jalankan Server
+Nyalakan server development Laravel:
+```bash
+php artisan serve
+```
+API sekarang akan berjalan dan dapat diakses di `http://127.0.0.1:8000`.
 
-### Premium Partners
+## Panduan Endpoint API
+Gunakan API client seperti Postman atau Insomnia untuk berinteraksi dengan endpoint berikut.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+### 1. List Books
+Menampilkan daftar buku dengan paginasi.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Method**: `GET`
+- **URL**: `/api/books`
+- **Contoh URL Halaman 2**: `/api/books?page=2`
+- **Respons Sukses (200 OK)**:
+  ```json
+  {
+      "current_page": 1,
+      "data": [
+          {
+              "id": 1,
+              "book_name": "Laskar Pelangi",
+              "description": "...",
+              "author": "Andrea Hirata",
+              "published_date": "2005-09-01",
+              "created_at": "...",
+              "updated_at": "..."
+          }
+      ],
+      "next_page_url": "...",
+      "path": "...",
+      "per_page": 4,
+      ...
+  }
+  ```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Create Book
+Menambahkan buku baru.
 
-## Security Vulnerabilities
+- **Method**: `POST`
+- **URL**: `/api/books`
+- **Body** (raw, JSON):
+  ```json
+  {
+      "book_name": "Buku Baru",
+      "author": "Penulis Baru",
+      "description": "Deskripsi singkat buku baru.",
+      "published_date": "2025-01-01"
+  }
+  ```
+- **Respons Sukses (201 Created)**:
+  ```json
+  {
+      "message": "Book created successfully",
+      "data": { ... }
+  }
+  ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+### 3. Update Book
+Memperbarui deskripsi buku.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Method**: `PUT` atau `PATCH`
+- **URL**: `/api/books/{id}` (Contoh: `/api/books/1`)
+- **Body** (raw, JSON):
+  ```json
+  {
+      "description": "Ini adalah deskripsi yang sudah diperbarui."
+  }
+  ```
+- **Respons Sukses (200 OK)**:
+  ```json
+  {
+      "message": "Book updated successfully",
+      "data": { ... }
+  }
+  ```
+  
+---
+
+### 4. Delete Book
+Menghapus buku.
+
+- **Method**: `DELETE`
+- **URL**: `/api/books/{id}` (Contoh: `/api/books/1`)
+- **Respons Sukses (200 OK)**:
+  ```json
+  {
+      "message": "Book deleted successfully"
+  }
+  ```
+
+---
+
+### 5. Search Book
+Mencari buku berdasarkan nama atau deskripsi.
+
+- **Method**: `GET`
+- **URL**: `/api/books/search`
+- **Query Params**:
+  - `key`: `query`
+  - `value`: `kata-kunci-pencarian`
+- **Contoh URL**: `/api/books/search?query=pelangi`
+- **Respons Sukses (200 OK)**:
+  Struktur responsnya sama seperti **List Books**, tetapi `data` hanya berisi buku yang cocok dengan kriteria pencarian.
