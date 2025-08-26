@@ -1,8 +1,8 @@
 # Book Management API - Simple CRUD Laravel
 
-Ini adalah proyek API sederhana yang dibangun menggunakan Laravel untuk manajemen data buku. Proyek ini dibuat sebagai bagian dari tes teknis dan mencakup fungsionalitas dasar Create, Read, Update, Delete (CRUD) serta fitur pencarian.
+Ini adalah proyek API sederhana yang dibangun menggunakan Laravel untuk manajemen data buku. Proyek ini dibuat sebagai bagian dari tes teknis dan mencakup fungsionalitas dasar Create, Read, Update, Delete (CRUD) serta fitur pencarian dan validasi.
 
-API ini mengikuti standar RESTful dan dirancang untuk menjadi backend bagi aplikasi frontend seperti web (JavaScript) atau mobile.
+API ini mengikuti standar REST dan dirancang untuk menjadi backend bagi aplikasi frontend seperti web (JavaScript) atau mobile.
 
 ## Fitur Utama
 - **Create**: Menambahkan buku baru ke dalam database.
@@ -24,7 +24,7 @@ Berikut adalah langkah-langkah untuk menjalankan proyek ini di lingkungan lokal.
 ### 1. Clone Repositori
 Clone repositori ini ke komputermu:
 ```bash
-git clone [URL_GIT_KAMU]
+git clone https://github.com/barnimd/Technical-Test-Backend-Ngontenin.git
 cd nama-folder-proyek
 ```
 
@@ -39,10 +39,10 @@ Salin file `.env.example` menjadi `.env`:
 ```bash
 copy .env.example .env
 ```
-Buka file `.env` dan sesuaikan konfigurasi database (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) dengan pengaturan di komputermu.
+Buka file `.env` dan sesuaikan konfigurasi database (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) dengan pengaturan di komputer.
 
 ### 4. Buat Kunci Aplikasi
-Generate kunci aplikasi unik untuk proyek Laravel-mu:
+Generate kunci aplikasi unik untuk proyek Laravel:
 ```bash
 php artisan key:generate
 ```
@@ -62,7 +62,7 @@ php artisan serve
 API sekarang akan berjalan dan dapat diakses di `http://127.0.0.1:8000`.
 
 ## Panduan Endpoint API
-Gunakan API client seperti Postman atau Insomnia untuk berinteraksi dengan endpoint berikut.
+Gunakan API client seperti Postman untuk berinteraksi dengan endpoint berikut.
 
 ---
 

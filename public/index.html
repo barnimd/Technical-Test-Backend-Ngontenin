@@ -83,10 +83,10 @@
 
 
     <script>
-        // URL dasar dari API backend kita
+        // URL dasar dari API backend
         const API_URL = 'http://127.0.0.1:8000/api';
 
-        // Elemen-elemen DOM yang akan kita manipulasi
+        // Elemen-elemen DOM yang akan di gunakan
         const bookList = document.getElementById('book-list');
         const paginationControls = document.getElementById('pagination-controls');
         const searchInput = document.getElementById('searchInput');
@@ -281,7 +281,7 @@
             }
         });
 
-        // Event listener untuk menampilkan modal tambah buku
+        // Event listener untuk menampilkan modul tambah buku
         showCreateModalBtn.addEventListener('click', () => {
             bookForm.reset();
             modalTitle.innerText = 'Tambah Buku Baru';
@@ -295,7 +295,7 @@
             bookModal.showModal();
         });
 
-        // Event listener untuk tombol tutup modal
+        // Event listener untuk tombol tutup modul
         closeModalBtn.addEventListener('click', () => {
             bookModal.close();
         });
